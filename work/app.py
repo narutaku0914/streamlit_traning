@@ -1,33 +1,41 @@
-import numpy as np
-import altair as alt
-import pandas as pd
 import streamlit as st
 
-st.header('st.write')
+from datetime import time, datetime
 
-st.subheader('md記法')
+st.header('st.slider')
 
-st.write('Hello, *world!* :sunglasses:')
-st.subheader('')
+# ex1
+st.subheader('Slider')
 
-st.subheader('数値出力')
-st.write(1234)
-st.subheader('')
+# title, min, max, initial
+age = st.slider('How old are you?', 20, 90, 30)
+st.write("I'm", age, 'years old')
 
-st.subheader('表')
-df = pd.DataFrame({
-  'first column': [1,2,3,4],
-  'second column': [10,20,30,40]
-})
+# ex2
+st.subheader('Range slider')
 
-st.write('コメント',df, 'コメント')
-st.subheader('')
+values = st.slider(
+  'Select a range of values',
+  0.0, 100.0, (25.1, 75.3)
+)
+st.write('Values:', values)
 
-st.subheader('バブル？')
-df2 =pd.DataFrame(
-  np.random.randn(200, 3),
-  columns=['a', 'b', 'c'])
+# ex3
+st.subheader('Range time slider')
+appointment = st.slider(
+  "Schedule your appointment:",
+  value=(time(11,30), time(12,45))
+)
+st.write("You're scheduled for:", appointment)
 
-c = alt.Chart(df2).mark_circle().encode(
-     x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
-st.write(c)
+# ex4
+# Example 4
+
+st.subheader('Datetime slider')
+
+start_time = st.slider(
+  "When do you start?",
+  value=datetime(2020, 1, 1, 9, 30),
+  format="MM/DD/YY - hh:mm"
+))
+st.write("Start time:", start_time)
