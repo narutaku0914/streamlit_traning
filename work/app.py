@@ -4,7 +4,7 @@ import numpy as np
 import altair as alt
 
 
-st.header('Line chart with Altair')
+st.header('Line chart using Altair')
 
 source = pd.DataFrame({
   'x': np.arange(20),
