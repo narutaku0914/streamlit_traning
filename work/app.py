@@ -1,19 +1,13 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
-import altair as alt
 
+st.header('st.selectbox')
 
-st.header('Line chart using Altair')
-
-source = pd.DataFrame({
-  'x': np.arange(20),
-  'a': np.random.randn(20),
-})
-
-chart = alt.Chart(source).mark_line().encode(
-  x='x',
-  y='a'
+option = st.selectbox(
+  'What is your favorite color?',
+  # setであることに注意
+  ('Blue', 'Red', 'Green'),
+  # label_visibility="hidden",
+  # disabled=True
 )
 
-st.altair_chart(chart, use_container_width=True)
+st.write('Your favorite color is ', option)
