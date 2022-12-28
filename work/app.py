@@ -1,25 +1,21 @@
 import streamlit as st
 
-st.header('st.multiselect')
+st.header('st.checkbox')
 
-if "visibility" not in st.session_state:
-  st.session_state.visibility = "visible"
-  st.session_state.disabled = False
+st.write('What would you like to order?')
 
-col1, col2 = st.columns(2)
+# checkboxがcheckedか否かを返す？
+icecream = st.checkbox('Ice cream')
+coffee = st.checkbox('coffee')
+cola = st.checkbox('cola')
 
-with col1:
-  st.checkbox("Disable selectbox widget", key="disabled")
-  st.radio(
-    "Set selectbox label visibility 👉",
-    key="visibility",
-    options=["visible", "hidden", "collapsed"],
-  )
+if icecream:
+  st.write("Great! Here's some more 🍦")
 
-with col2:
-  option = st.selectbox(
-    "How would you like to be contacted?",
-    ("Email", "Home phone", "Mobile phone"),
-    label_visibility=st.session_state.visibility,
-    disabled=st.session_state.disabled,
-  )
+if coffee:
+  st.write("Okey, here's some coffee ☕️")
+
+if cola:
+  st.write("Here we go 🥤")
+
+
