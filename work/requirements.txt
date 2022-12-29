@@ -1,5 +1,7 @@
 streamlit
+streamlit_pandas_profiling
 pandas
+pandas_profiling
 numpy
 altair
 plotly

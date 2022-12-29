@@ -1,17 +1,14 @@
 import streamlit as st
+import pandas as pd
+import pandas_profiling
 
-st.header('st.checkbox')
+from streamlit_pandas_profiling import st_profile_report
 
-# checkboxがcheckedか否かを返す？
-check = st.checkbox('Click here')
+st.header('streamlit_pandas_profiling')
 
-if check:
-  st.write(f"State of the checkbox: {check}")
+df = pd.read_csv('https://raw.githubusercontent.com/dataprofessor/data/master/penguins_cleaned.csv')
 
-check2 = st.checkbox("Uncheck to remove cake", value=True)
-
-if check2:
-  st.write(f"State of the checkbox: {check2}")
-  st.write(":cake:"*102)
+profile_report = df.profile_report()
+st_profile_report(profile_report)
 
 
