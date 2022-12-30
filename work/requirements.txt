@@ -1,5 +1,6 @@
 streamlit
 streamlit_pandas_profiling
+streamlit_player
 pandas
 pandas_profiling
 numpy
