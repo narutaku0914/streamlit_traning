@@ -1,30 +1,17 @@
 import streamlit as st
 
-from streamlit_player import st_player, _SUPPORTED_EVENTS
+st.title('Customizing the theme of Streamlit apps')
 
-def main():
-  c1, c2 = st.columns([6, 4])
+st.write('Contents of the `.streamlit/config.toml` file of this app')
 
-  with c2:
-    st.subheader("Parameters")
+st.code("""
+[theme]
+primaryColor="#F39C12"
+backgroundColor="#2E86C1"
+secondaryBackgroundColor="#AED6F1"
+textColor="#FFFFFF"
+font="monospace"
+""")
 
-    options = {
-        "events": st.multiselect("Events to listen", _SUPPORTED_EVENTS, ["onProgress"]),
-        "progress_interval": 1000,
-        "volume": st.slider("Volume", 0.0, 1.0, 1.0, .01),
-        "playing": st.checkbox("Playing", False),
-        "loop": st.checkbox("Loop", False),
-        "controls": st.checkbox("Controls", True),
-        "muted": st.checkbox("Muted", False),
-    }
-
-  with c1:
-    url = st.text_input("First URL", "https://youtu.be/c9k8K1eII4g")
-    event = st_player(url, **options, key="youtube_player")
-
-    st.write(event)
-
-
-if __name__ == "__main__":
-  main()
-
+number = st.sidebar.slider('Select a number:', 0, 10, 5)
+st.write('Selected number from slider widget is:', number)
