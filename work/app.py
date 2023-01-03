@@ -1,5 +1,8 @@
 import streamlit as st
 import pandas as pd
+import pandas_profiling
+
+from streamlit_pandas_profiling import st_profile_report
 
 st.title('st.file_uploader')
 
@@ -10,7 +13,8 @@ if upload_file is not None:
   df = pd.read_csv(upload_file)
   st.subheader('DataFrame')
   st.write(df)
-  st.subheader('Descriptive Statistics')
-  st.write(df.describe())
+  st.subheader('Profiling')
+  profile_report = df.profile_report()
+  st_profile_report(profile_report)
 else:
   st.info('☝️ Upload a CSV file')
