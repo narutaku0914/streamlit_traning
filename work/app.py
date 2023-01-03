@@ -1,7 +1,16 @@
 import streamlit as st
+import pandas as pd
 
-st.title('st.secrets')
+st.title('st.file_uploader')
 
-st.write("DB username:", st.secrets["db_username"])
-st.write("DB password:", st.secrets["db_password"])
-st.write("My cool secrets:", st.secrets["my_cool_secrets"]["things_i_like"])
+st.subheader('Input CSV')
+upload_file = st.file_uploader("choose a file")
+
+if upload_file is not None:
+  df = pd.read_csv(upload_file)
+  st.subheader('DataFrame')
+  st.write(df)
+  st.subheader('Descriptive Statistics')
+  st.write(df.describe())
+else:
+  st.info('☝️ Upload a CSV file')
