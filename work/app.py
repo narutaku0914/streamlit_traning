@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 
 st.title('st.form')
 
@@ -21,6 +22,12 @@ with st.form('my_form'):
     submitted = st.form_submit_button('Submit')
 
 if submitted:
+    my_bar = st.progress(0)
+
+    for percent_complete in range(100):
+        time.sleep(0.05)
+        my_bar.progress(percent_complete + 1)
+        
     st.markdown(f'''
         ☕ You have ordered:
         - Coffee bean: `{coffee_bean_val}`
@@ -35,23 +42,23 @@ else:
 
 
 # object
-st.header('2. Example of object notation')
+# st.header('2. Example of object notation')
 
-form = st.form('my_form_2')
-coffee_bean_val = form.selectbox('Coffee bean', ['Arabica', 'Robusta'])
-coffee_roast_val = form.selectbox('Coffee roast', ['Light', 'Medium', 'Dark'])
-brewing_val = form.selectbox('Brewing method', ['Aeropress', 'Drip', 'French press', 'Moka pot', 'Siphon'])
-serving_type_val = form.selectbox('Serving format', ['Hot', 'Iced', 'Frappe'])
-milk_val = form.select_slider('Milk intensity', ['None', 'Low', 'Medium', 'High'])
-owncup_val = form.checkbox('Bring own cup')
-form.form_submit_button('Submit')
+# form = st.form('my_form_2')
+# coffee_bean_val = form.selectbox('Coffee bean', ['Arabica', 'Robusta'])
+# coffee_roast_val = form.selectbox('Coffee roast', ['Light', 'Medium', 'Dark'])
+# brewing_val = form.selectbox('Brewing method', ['Aeropress', 'Drip', 'French press', 'Moka pot', 'Siphon'])
+# serving_type_val = form.selectbox('Serving format', ['Hot', 'Iced', 'Frappe'])
+# milk_val = form.select_slider('Milk intensity', ['None', 'Low', 'Medium', 'High'])
+# owncup_val = form.checkbox('Bring own cup')
+# form.form_submit_button('Submit')
 
-st.markdown(f'''
-  ☕ You have ordered:
-  - Coffee bean: `{coffee_bean_val}`
-  - Coffee roast: `{coffee_roast_val}`
-  - Brewing: `{brewing_val}`
-  - Serving type: `{serving_type_val}`
-  - Milk: `{milk_val}`
-  - Bring own cup: `{owncup_val}`
-  ''')
+# st.markdown(f'''
+#   ☕ You have ordered:
+#   - Coffee bean: `{coffee_bean_val}`
+#   - Coffee roast: `{coffee_roast_val}`
+#   - Brewing: `{brewing_val}`
+#   - Serving type: `{serving_type_val}`
+#   - Milk: `{milk_val}`
+#   - Bring own cup: `{owncup_val}`
+#   ''')
