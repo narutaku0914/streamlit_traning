@@ -1,32 +1,44 @@
 import streamlit as st
+import numpy as np
+import pandas as pd
+from time import time
 
-url = "https://narutaku0914-streamlit-traning-workapp-whtxcx.streamlit.app"
+st.title('st.cache')
 
-st.title('st.experimental_get_query_params')
+# Using cache
+a0 = time()
+st.subheader('Using st.cache')
 
-with st.expander('About this app'):
-  st.write("`st.experimental_get_query_params` allows the retrieval of query parameters directly from the URL of the user's browser.")
+# @st.cache(suppress_st_warning=True)
+@st.cache
+def load_data_a():
+  df = pd.DataFrame(
+    np.random.rand(2000000, 5),
+    columns=['a', 'b', 'c', 'd', 'e']
+  )
+  st.write('a')
+  return df
 
-# 1. Instructions
-st.header('1. Instructions')
-st.markdown('''
-In the above URL bar of your internet browser, append the following:
-`?firstname=Jack&surname=Beanstalk`
-after the base URL `{url}/`
-such that it becomes 
-`{url}/?firstname=Jack&surname=Beanstalk`
-''')
+  '''
+    suppress_st_warning キーワードを @st.cache デコレータに追加したことにお気づきでしょうか。これは、上のキャッシュ関数はStreamlitのコマンドそのものを使っているので（この場合はst.write）、Streamlitがそれを見ると、キャッシュミスがあったときだけコマンドが実行されるという警告が表示されるからです。多くの場合、この警告が表示されるのは、あなたのコードにバグがあることが原因です。しかし、私たちの場合はst.writeコマンドを使ってキャッシュがなくなったときのデモをしているので、Streamlitが警告している動作はまさに私たちが欲しいものなのです。そのため、suppress_st_warning=Trueを渡すことで、その警告を消しています。
+  '''
+
+st.write(load_data_a())
+a1 = time()
+st.info(a1-a0)
 
 
-# 2. Contents of st.experimental_get_query_params
-st.header('2. Contents of st.experimental_get_query_params')
-st.write(st.experimental_get_query_params())
+# Not using cache
+b0 = time()
+st.subheader('Not using st.cache')
 
+def load_data_b():
+  df = pd.DataFrame(
+    np.random.rand(2000000, 5),
+    columns=['a', 'b', 'c', 'd', 'e']
+  )
+  return df
 
-# 3. Retrieving and displaying information from the URL
-st.header('3. Retrieving and displaying information from the URL')
-
-firstname = st.experimental_get_query_params()['firstname'][0]
-surname = st.experimental_get_query_params()['surname'][0]
-
-st.write(f'Hello **{firstname} {surname}**, how are you?')
+st.write(load_data_b())
+b1 = time()
+st.info(b1-b0)
