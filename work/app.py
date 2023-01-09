@@ -1,5 +1,7 @@
 import streamlit as st
 
+url = "https://narutaku0914-streamlit-traning-workapp-whtxcx.streamlit.app"
+
 st.title('st.experimental_get_query_params')
 
 with st.expander('About this app'):
@@ -9,10 +11,10 @@ with st.expander('About this app'):
 st.header('1. Instructions')
 st.markdown('''
 In the above URL bar of your internet browser, append the following:
-`?name=Jack&surname=Beanstalk`
-after the base URL `http://share.streamlit.io/dataprofessor/st.experimental_get_query_params/`
+`?firstname=Jack&surname=Beanstalk`
+after the base URL `{url}/`
 such that it becomes 
-`http://share.streamlit.io/dataprofessor/st.experimental_get_query_params/?firstname=Jack&surname=Beanstalk`
+`{url}/?firstname=Jack&surname=Beanstalk`
 ''')
 
 
