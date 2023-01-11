@@ -1,44 +1,18 @@
 import streamlit as st
-import numpy as np
-import pandas as pd
-from time import time
 
-st.title('st.cache')
+st.title('st.session_state')
 
-# Using cache
-a0 = time()
-st.subheader('Using st.cache')
+def lbs_to_kg():
+  st.session_state.kg = st.session_state.lbs/2.2046
+def kg_to_lbs():
+  st.session_state.lbs = st.session_state.kg*2.2046
 
-# @st.cache(suppress_st_warning=True)
-@st.cache
-def load_data_a():
-  df = pd.DataFrame(
-    np.random.rand(2000000, 5),
-    columns=['a', 'b', 'c', 'd', 'e']
-  )
-  st.write('a')
-  return df
+st.header('Input')
+col1, spacer, col2 = st.columns([2,1,2])
+with col1:
+  pounds = st.number_input("Pounds:", key = "lbs", on_change = lbs_to_kg)
+with col2:
+  kilogram = st.number_input("Kilograms:", key = "kg", on_change = kg_to_lbs)
 
-  '''
-    suppress_st_warning キーワードを @st.cache デコレータに追加したことにお気づきでしょうか。これは、上のキャッシュ関数はStreamlitのコマンドそのものを使っているので（この場合はst.write）、Streamlitがそれを見ると、キャッシュミスがあったときだけコマンドが実行されるという警告が表示されるからです。多くの場合、この警告が表示されるのは、あなたのコードにバグがあることが原因です。しかし、私たちの場合はst.writeコマンドを使ってキャッシュがなくなったときのデモをしているので、Streamlitが警告している動作はまさに私たちが欲しいものなのです。そのため、suppress_st_warning=Trueを渡すことで、その警告を消しています。
-  '''
-
-st.write(load_data_a())
-a1 = time()
-st.info(a1-a0)
-
-
-# Not using cache
-b0 = time()
-st.subheader('Not using st.cache')
-
-def load_data_b():
-  df = pd.DataFrame(
-    np.random.rand(2000000, 5),
-    columns=['a', 'b', 'c', 'd', 'e']
-  )
-  return df
-
-st.write(load_data_b())
-b1 = time()
-st.info(b1-b0)
+st.header('Output')
+st.write("st.session_state object:", st.session_state)
