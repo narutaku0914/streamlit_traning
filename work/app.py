@@ -1,30 +1,29 @@
 import streamlit as st
+import pandas as pd
 import requests
 
-st.title('🏀 Bored API app')
+st.title('🏥 Coronavirus COVID19 API app')
 
 st.sidebar.header('Input')
-selected_type = st.sidebar.selectbox('Select an activity type', ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"])
+country_url = 'https://api.covid19api.com/countries'
+country_json_data = requests.get(country_url).json()
+countries = [json['Country'] for json in country_json_data]
+countries.sort()
+selected_country = st.sidebar.selectbox('Select a country',countries)
 
-suggested_activity_url = f'http://www.boredapi.com/api/activity?type={selected_type}'
-json_data = requests.get(suggested_activity_url)
-suggested_activity = json_data.json()
+# selected_type = st.sidebar.selectbox('Select an activity type', ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"])
+colona_url = f'https://api.covid19api.com/dayone/country/{selected_country}'
+colona_json_data = requests.get(colona_url).json()
 
 c1, c2 = st.columns(2)
 with c1:
   with st.expander('About this app'):
-    st.write('Are you bored? The **Bored API app** provides suggestions on activities that you can do when you are bored. This app is powered by the Bored API.')
+    st.write('Coronavirus COVID19 API(https://documenter.getpostman.com/view/10808728/SzS8rjbc#intro)の Day OneAPIで取得したデータをそのままテーブルで表示。れからアップデートできれば。')
 with c2:
   with st.expander('JSON data'):
-    st.write(suggested_activity)
+    st.write(colona_json_data)
 
-st.header('Suggested activity')
-st.info(suggested_activity['activity'])
-
-col1, col2, col3 = st.columns(3)
-with col1:
-  st.metric(label='Number of Participants', value=suggested_activity['participants'], delta='')
-with col2:
-  st.metric(label='Type of Activity', value=suggested_activity['type'].capitalize(), delta='')
-with col3:
-  st.metric(label='Price', value=suggested_activity['price'], delta='')
+st.header(f'APIから取得した{selected_country}のコロナ感染者テーブル')
+# df = pd.read_json(suggested_activity, orient='records')
+df = pd.json_normalize(colona_json_data)
+st.write(df)
