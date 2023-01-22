@@ -2,6 +2,7 @@ streamlit
 streamlit_pandas_profiling
 streamlit_player
 streamlit-elements==0.1.*
+streamlit-shap
 pandas
 pandas_profiling
 numpy
@@ -10,3 +11,4 @@ plotly
 japanmap
 openpyxl
 opencv-python
+xgboost
