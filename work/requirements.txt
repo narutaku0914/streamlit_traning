@@ -3,6 +3,9 @@ streamlit_pandas_profiling
 streamlit_player
 streamlit-elements==0.1.*
 streamlit-shap
+streamlit-option-menu
+streamlit-tags
+streamlit-aggrid
 pandas
 pandas_profiling
 numpy
