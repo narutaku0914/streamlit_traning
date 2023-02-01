@@ -17,8 +17,8 @@ from st_aggrid.shared import JsCode
 from st_aggrid import GridUpdateMode, DataReturnMode
 
 # Import for loading interactive keyboard shortcuts into the app
-# from dashboard_utils.gui import keyboard_to_url
-# from dashboard_utils.gui import load_keyboard_class
+from dashboard_utils.gui import keyboard_to_url
+from dashboard_utils.gui import load_keyboard_class
 
 st.set_page_config( page_title="Zero-Shot Text Classifier", page_icon="🤗")
 
@@ -82,3 +82,27 @@ if len(linesList) > MAX_LINES:
         + str(MAX_LINES)
         + " keyprases will be reviewed. Unlock that limit by switching to 'Unlocked Mode'"
     )
+
+
+def query(payload):
+    response = requests.post(API_URL, headers=headers, json=payload)
+    # Unhash to check status codes from the API response
+    # st.write(response.status_code)
+    return response.json()
+
+listToAppend = []
+
+for row in linesList:
+    output2 = query(
+                {
+                    "inputs": row,
+                    "parameters": {"candidate_labels": label_widget},
+                    "options": {"wait_for_model": True},
+                }
+            )
+
+listToAppend.append(output2)
+
+df = pd.DataFrame.from_dict(listToAppend)
+df
+
