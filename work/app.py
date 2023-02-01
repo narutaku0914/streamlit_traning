@@ -57,3 +57,28 @@ label_widget = st_tags(
             ],
             maxtags=3,
         )
+
+MAX_LINES = 5
+text = st.text_area(
+            "Enter keyphrase to classify",
+            sample,
+            height=200,
+            key="2",
+            help="At least two keyphrases for the classifier to work, one per line, "
+            + str(MAX_LINES)
+            + " keyphrases max as part of the demo",
+        )
+lines = text.split("\n")  # A list of lines
+linesList = []
+for x in lines:
+    linesList.append(x)
+linesList = list(dict.fromkeys(linesList))  # Remove dupes
+linesList = list(filter(None, linesList))  # Remove empty
+
+
+if len(linesList) > MAX_LINES:
+    st.info(
+        f"🚨 Only the first "
+        + str(MAX_LINES)
+        + " keyprases will be reviewed. Unlock that limit by switching to 'Unlocked Mode'"
+    )
