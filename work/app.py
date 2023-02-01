@@ -25,6 +25,14 @@ st.set_page_config( page_title="Zero-Shot Text Classifier", page_icon="🤗")
 # st.image("logo.png", width=350)
 st.title("Zero-Shot Text Classifier")
 
+API_KEY = st.secrets["API_KEY"]
+
+API_URL = (
+    "https://api-inference.huggingface.co/models/valhalla/distilbart-mnli-12-3"
+)
+
+headers = {"Authorization": f"Bearer {API_KEY}"}
+
 with st.sidebar:
     selected = option_menu(
         "",
@@ -34,11 +42,18 @@ with st.sidebar:
         default_index=0,
     )
 
-API_KEY = st.secrets["API_KEY"]
 
-API_URL = (
-        "https://api-inference.huggingface.co/models/valhalla/distilbart-mnli-12-3"
-    )
-
-headers = {"Authorization": f"Bearer {API_KEY}"}
-
+label_widget = st_tags(
+            label="",
+            text="Add labels - 3 max",
+            value=["Transactional", "Informational"],
+            suggestions=[
+                "Navigational",
+                "Transactional",
+                "Informational",
+                "Positive",
+                "Negative",
+                "Neutral",
+            ],
+            maxtags=3,
+        )
