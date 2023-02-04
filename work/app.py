@@ -47,19 +47,22 @@ if not "valid_inputs_received" in st.session_state:
 
 # The block of code below is to display the title, logos and introduce the app.
 
-c1, c2 = st.columns([0.4, 2])
+# c1, c2 = st.columns([0.4, 2])
 
-with c1:
+# with c1:
 
-    st.image(
-        "logo.png",
-        width=110,
-    )
+#     st.image(
+#         "logo.png",
+#         width=110,
+#     )
 
-with c2:
+# # with c2:
 
-    st.caption("")
-    st.title("Zero-Shot Text Classifier")
+#     st.caption("")
+#     st.title("Zero-Shot Text Classifier")
+
+st.caption("")
+st.title("Zero-Shot Text Classifier")
 
 st.write("")
 
