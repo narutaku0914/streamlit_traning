@@ -516,12 +516,3 @@ elif selected == "Unlocked Mode":
 if __name__ == "__main__":
     main()
 
-keyboard_to_url(
-    key="g",
-    url="https://github.com/CharlyWargnier/zero-shot-classifier/blob/main/streamlit_app.py",
-)
-keyboard_to_url(
-    key_code=190,
-    url="https://github.dev/CharlyWargnier/zero-shot-classifier/blob/main/streamlit_app.py",
-)
-
